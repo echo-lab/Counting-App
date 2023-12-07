@@ -1,7 +1,13 @@
 import mongoose from "mongoose";
 import fs from 'fs';
+import { fileURLToPath } from 'url';
+import path from 'path';
 
-let rawKeyData = fs.readFileSync('src/key/key.json'); 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const keyPath = path.join(__dirname, '/Key/key.json');
+
+let rawKeyData = fs.readFileSync(keyPath); 
 let keyData = JSON.parse(rawKeyData);
 
 const uname = keyData.mongo_username;

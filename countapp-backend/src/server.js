@@ -6,14 +6,28 @@ import jwt from 'jsonwebtoken';
 import fs from 'fs';
 import fetch from 'node-fetch';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const keyPath = path.join(__dirname, '/Key/key.json');
+const dataPath = path.join(__dirname, '/data');
+
+const corsOptions = {
+  origin: 'https://talemate.cs.vt.edu:8000',
+  methods: 'POST',
+  credentials: true
+};
 
 const app = express();
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
+
 const JWT_SECRET = "wjergiurh2o$3hrorir804623]4801[1314hkjtgo24o823801";
-let rawKeyData = fs.readFileSync('src/key/key.json'); 
+let rawKeyData = fs.readFileSync(keyPath); 
 let keyData = JSON.parse(rawKeyData);
 const GOOGLE_API_KEY = keyData.key; 
 
@@ -110,7 +124,6 @@ app.post("/register", async (req, res) => {
 
       const user = jwt.verify(token, JWT_SECRET);
       const username = user.name;
-      console.log("username:",username)
 
       const updatedUser = await User.findOneAndUpdate(
         { uname :username },
@@ -132,7 +145,7 @@ app.post("/register", async (req, res) => {
       const {typeOfTraining } = req.body;
       console.log('Parsed touch data:', typeOfTraining);
       const dataToWrite = `${typeOfTraining}: ${JSON.stringify(touchData)}`;
-      fs.writeFileSync('src/data/TrainingTouchData.txt', dataToWrite);
+      fs.writeFileSync(`${dataPath}/TrainingTouchData.txt`, dataToWrite);
   
       res.status(200).send('Touch data saved successfully.');
     } catch (error) {
@@ -147,7 +160,7 @@ app.post("/register", async (req, res) => {
       const { touchData } = req.body; 
       console.log('Parsed touch data:', touchData);
   
-      fs.writeFileSync('src/data/BaselineGameData.txt', JSON.stringify(touchData));
+      fs.writeFileSync(`${dataPath}/BaselineGameData.txt`, JSON.stringify(touchData));
   
       res.status(200).send('Touch data saved successfully.');
     } catch (error) {
@@ -162,7 +175,7 @@ app.post("/register", async (req, res) => {
       const { touchData } = req.body; 
       console.log('Parsed touch data:', touchData);
   
-      fs.writeFileSync('src/data/TouchGameData.txt', JSON.stringify(touchData));
+      fs.writeFileSync(`${dataPath}/TouchGameData.txt`, JSON.stringify(touchData));
   
       res.status(200).send('Touch data saved successfully.');
     } catch (error) {
@@ -177,7 +190,7 @@ app.post("/register", async (req, res) => {
       const { touchData } = req.body; 
       console.log('Parsed touch data:', touchData);
   
-      fs.writeFileSync('src/data/AnimationGameData.txt', JSON.stringify(touchData));
+      fs.writeFileSync(`${dataPath}/AnimationGameData.txt`, JSON.stringify(touchData));
   
       res.status(200).send('Touch data saved successfully.');
     } catch (error) {
@@ -192,7 +205,7 @@ app.post("/register", async (req, res) => {
       const { touchData } = req.body; 
       console.log('Parsed touch data:', touchData);
   
-      fs.writeFileSync('src/data/PracticeTouchData.txt', JSON.stringify(touchData));
+      fs.writeFileSync(`${dataPath}/PracticeTouchData.txt`, JSON.stringify(touchData));
   
       res.status(200).send('Touch data saved successfully.');
     } catch (error) {
