@@ -265,3 +265,12 @@ connectToDb()
     console.error("Error connecting to DB:", error);
   });
 
+const httpsOptions = {
+    key: fs.readFileSync('/home/sangwonlee/TaleMate/cert/key3.pem'),
+    cert: fs.readFileSync('/home/sangwonlee/TaleMate/cert/talemate.cs.vt.edu.crt')
+};
+
+https.createServer(httpsOptions, app).listen(port, () => {
+    console.log(`Server started on https://localhost:${port}`);
+});
+
