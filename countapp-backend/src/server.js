@@ -257,9 +257,9 @@ connectToDb()
   .then(() => {
     console.log("Successfully Connected to DB");
 
-    app.listen(PORT, () => {
-      console.log("Server listening on port " + PORT);
-    });
+    // app.listen(PORT, () => {
+    //   console.log("Server listening on port " + PORT);
+    // });
   })
   .catch((error) => {
     console.error("Error connecting to DB:", error);
@@ -270,7 +270,7 @@ const httpsOptions = {
     cert: fs.readFileSync('/home/sangwonlee/TaleMate/cert/talemate.cs.vt.edu.crt')
 };
 
-https.createServer(httpsOptions, app).listen(port, () => {
-    console.log(`Server started on https://localhost:${port}`);
+https.createServer(httpsOptions, app).listen(PORT, () => {
+    console.log(`Server started on https://localhost:${PORT}`);
 });
 
