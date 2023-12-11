@@ -16,7 +16,7 @@ const keyPath = path.join(__dirname, '/Key/key.json');
 const dataPath = path.join(__dirname, '/data');
 
 const corsOptions = {
-  origin: 'https://talemate.cs.vt.edu:8000',
+  origin: 'https://talemate.cs.vt.edu:3000',
   methods: 'POST',
   credentials: true
 };
@@ -51,7 +51,7 @@ app.post("/register", async (req, res) => {
         },
       });
 
-      console.log("user:", User.answers)
+      console.log("user:", User.uname)
       const token = jwt.sign({name: name}, JWT_SECRET,{
         expiresIn: 86400,
       });
