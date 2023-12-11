@@ -1,3 +1,4 @@
+import { BASE_URL } from '../helpers/constants.js';
 
 let currentAudio = null;
 
@@ -7,7 +8,7 @@ export async function textToSpeech(utterance, onSpeechEnd) {
       text: utterance,
     };
 
-    const response = await fetch('/speech/synthesize', {
+    const response = await fetch(`${BASE_URL}/speech/synthesize`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

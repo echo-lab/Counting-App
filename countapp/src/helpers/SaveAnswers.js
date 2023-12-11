@@ -1,4 +1,4 @@
-
+import { BASE_URL } from '../helpers/constants.js';
 
 export async function saveAnswers() {
     const baselineTrainingAnswers = localStorage.getItem('baselineTrainingAnswers');
@@ -18,7 +18,7 @@ export async function saveAnswers() {
         baselineCategoryAnswers: baselineCategoryAnswers,
     };
 
-    const response = await fetch('/submit-answers', {
+    const response = await fetch(`${BASE_URL}/submit-answers`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

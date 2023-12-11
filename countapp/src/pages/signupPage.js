@@ -5,6 +5,7 @@ import axios from "axios";
 import '../styles/signup.css';
 import image2 from '../assests/image2.jpg'
 import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+import { BASE_URL } from '../helpers/constants.js';
 
 function SignupPage() {
   const [name, setName] = useState('');
@@ -13,7 +14,7 @@ function SignupPage() {
   const handleSubmit = async (e) =>{
     e.preventDefault();
     console.log("Name:",name)
-    const response = await axios.post(`/register`,{
+    const response = await axios.post(`${BASE_URL}/register`,{
       name: name,
     }).then((res) =>{
       if(res.status == 200){

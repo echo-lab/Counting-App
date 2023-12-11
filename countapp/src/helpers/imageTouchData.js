@@ -1,3 +1,5 @@
+import { BASE_URL } from '../helpers/constants.js';
+
 export const handleInteraction = (event, setTouchData) => {
   const date = new Date().toLocaleDateString();
   const currentTime = new Date();
@@ -31,7 +33,7 @@ export const handleInteraction = (event, setTouchData) => {
 
   export const handleNextClickBaseline = (touchData) => {
     console.log("touchdata:", touchData)
-    fetch('/save/Game/Touch/Baseline/Data', {
+    fetch(`${BASE_URL}/save/Game/Touch/Baseline/Data`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +57,7 @@ export const handleInteraction = (event, setTouchData) => {
 
   export const handleNextClickTouch = (touchData) => {
     console.log("touchdata:", touchData)
-    fetch('/save/Game/Touch/Data', {
+    fetch(`${BASE_URL}/save/Game/Touch/Data`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -77,7 +79,7 @@ export const handleInteraction = (event, setTouchData) => {
 
   export const handleNextClickAnimation = (touchData) => {
     console.log("touchdata:", touchData)
-    fetch('/save/Game/Touch/Animation/Data', {
+    fetch(`${BASE_URL}/save/Game/Touch/Animation/Data`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -99,7 +101,7 @@ export const handleInteraction = (event, setTouchData) => {
 
   export const handleNextClickTraining = (touchData, typeOfTraining) => {
     console.log("touchdata:", touchData)
-    fetch('/saveTrainingTouchData', {
+    fetch(`${BASE_URL}/saveTrainingTouchData`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +123,7 @@ export const handleInteraction = (event, setTouchData) => {
 
   export const handleNextClickPractice = (touchData) => {
     console.log("touchdata:", touchData)
-    fetch('/savePracticeTouchData', {
+    fetch(`${BASE_URL}/savePracticeTouchData`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

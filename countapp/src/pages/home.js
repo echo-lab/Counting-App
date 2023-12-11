@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import SaveIcon from '@mui/icons-material/Save';
 import { useSound } from "../helpers/SoundContext";
 import { saveAnswers } from "../helpers/SaveAnswers";
+import { BASE_URL } from '../helpers/constants.js';
 
 function Home() {
   const [userData, setuserData] = useState("");
@@ -21,7 +22,7 @@ function Home() {
     console.log("token:", token);
     const fetchData = async () => {
       try {
-        const response = await axios.post(`/userData`, {
+        const response = await axios.post(`${BASE_URL}/userData`, {
           token: token,
         });
         setuserData(response.data.data);
