@@ -8,6 +8,7 @@ import fetch from 'node-fetch';
 import cors from 'cors';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { createServer } from 'https';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -270,7 +271,7 @@ const httpsOptions = {
     cert: fs.readFileSync('/home/sangwonlee/TaleMate/cert/talemate.cs.vt.edu.crt')
 };
 
-https.createServer(httpsOptions, app).listen(PORT, () => {
-    console.log(`Server started on https://localhost:${PORT}`);
+createServer(httpsOptions, app).listen(PORT, () => {
+    console.log(`Server started on https://talemate.cs.vt.edu:${PORT}`);
 });
 
