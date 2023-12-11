@@ -17,7 +17,7 @@ const dataPath = path.join(__dirname, '/data');
 
 const corsOptions = {
   origin: 'https://talemate.cs.vt.edu:3000',
-  methods: 'POST',
+  methods: ['GET', 'POST'],
   credentials: true
 };
 
@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 
-const JWT_SECRET = "wjergiurh2o$3hrorir804623]4801[1314hkjtgo24o823801";
+const JWT_SECRET = keyData.jwt_key;
 let rawKeyData = fs.readFileSync(keyPath); 
 let keyData = JSON.parse(rawKeyData);
 const GOOGLE_API_KEY = keyData.key; 
@@ -267,8 +267,8 @@ connectToDb()
   });
 
 const httpsOptions = {
-    key: fs.readFileSync('/home/sangwonlee/TaleMate/cert/key3.pem'),
-    cert: fs.readFileSync('/home/sangwonlee/TaleMate/cert/talemate.cs.vt.edu.crt')
+    key: fs.readFileSync('/home/sangwonlee/CountingApp/cert/key3.pem'),
+    cert: fs.readFileSync('/home/sangwonlee/CountingApp/cert/talemate.cs.vt.edu.crt')
 };
 
 createServer(httpsOptions, app).listen(PORT, () => {
