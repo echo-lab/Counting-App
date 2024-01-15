@@ -11,7 +11,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DialogBox from "../components/dialogBox";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import {handleInteraction, handleNextClickBaseline} from '../helpers/imageTouchData';
+import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 function basePage() {
     const { page } = useParams();
@@ -56,7 +56,7 @@ function basePage() {
       const handleNextPage = () => {
         if (currentPage < 3) {
           messageRef.current = false;
-          handleNextClickBaseline(touchData);
+          handleNextClickTouchData(touchData, "Baseline", currentPage);
           setSelectedTray(null);
         }
       };
@@ -67,6 +67,12 @@ function basePage() {
           setSelectedTray(null);
         }
       };
+
+
+      const setModelshow = () =>{
+        handleNextClickTouchData(touchData, "Baseline", currentPage);
+        setModalShow(true)
+      }
 
 
 
@@ -189,7 +195,7 @@ function basePage() {
             </Link>
           </button>
         ) : (
-          <button onClick={() => setModalShow(true)}>
+          <button onClick={setModelshow}>
             {" "}
             <ArrowForwardIosIcon />
           </button>

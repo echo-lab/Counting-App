@@ -27,7 +27,7 @@ import Animation from "../components/animation";
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
-import {handleInteraction, handleNextClickTouch} from '../helpers/imageTouchData';
+import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 const gamePage = () => {
   const { page } = useParams();
@@ -208,7 +208,7 @@ const gamePage = () => {
       setSelectedTray(null);
       spokenRef.current = false;
       spokenRef2.current = false;
-      handleNextClickTouch(touchData);
+      handleNextClickTouchData(touchData, "Touch", currentPage);
     }
   };
 
@@ -225,6 +225,11 @@ const gamePage = () => {
       spokenRef2.current = false;
     }
   };
+
+  const setModelshow = () =>{
+    handleNextClickTouchData(touchData, "Touch", currentPage);
+    setModalShow(true)
+  }
 
   const storeAnswer = (answerKey, answerValue) => {
     const storedAnswersJSON = localStorage.getItem('touchCategoryAnswers');
@@ -346,7 +351,7 @@ const gamePage = () => {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 3 
                 ?  ( <button onClick={handleNextPage}><Link to={`/game/play/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={() => setModalShow(true)}> <ArrowForwardIosIcon /></button>)}
+                : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>

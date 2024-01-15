@@ -57,7 +57,7 @@ function basePage() {
         if (currentPage < 3) {
           messageRef.current = false;
           setSelectedTray(null);
-          handleNextClickTraining(touchData, "baseline");
+          handleNextClickTraining(touchData, "baseline", currentPage);
         }
       };
     
@@ -67,6 +67,11 @@ function basePage() {
           setSelectedTray(null);
         }
       };
+
+      const setModelshow = () =>{
+        handleNextClickTraining(touchData, "baseline", currentPage);
+        setModalShow(true)
+      }
 
 
 
@@ -189,7 +194,7 @@ function basePage() {
             </Link>
           </button>
         ) : (
-          <button onClick={() => setModalShow(true)}>
+          <button onClick={setModelshow}>
             {" "}
             <ArrowForwardIosIcon />
           </button>

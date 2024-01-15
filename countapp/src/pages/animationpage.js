@@ -27,7 +27,7 @@ import AnimationNoCircle from "../components/animationNoCircleDraw.js";
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
-import {handleInteraction, handleNextClickTouch} from '../helpers/imageTouchData';
+import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 const animationPage = () => {
   const { page } = useParams();
@@ -164,7 +164,7 @@ useEffect(() => {
       setSelectedTray(null);
       spokenRef.current = false;
       spokenRef2.current = false;
-      handleNextClickTouch(touchData);
+      handleNextClickTouchData(touchData, "Animation", currentPage);
       setFirstAudioStarted(false);
     }
   };
@@ -182,6 +182,11 @@ useEffect(() => {
       setFirstAudioStarted(false);
     }
   };
+
+  const setModelshow = () =>{
+    handleNextClickTouchData(touchData, "Animation", currentPage);
+    setModalShow(true)
+  }
 
   const storeAnswer = (answerKey, answerValue) => {
     const storedAnswersJSON = localStorage.getItem('animationCategoryAnswers');
@@ -303,7 +308,7 @@ useEffect(() => {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 3 
                 ?  ( <button onClick={handleNextPage}><Link to={`/game/animation/play/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={() => setModalShow(true)}> <ArrowForwardIosIcon /></button>)}
+                : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>

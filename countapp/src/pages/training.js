@@ -63,7 +63,7 @@ function training() {
     const handleNextPage = () => {
       if (currentPage < 12) {
         messageRef.current = false;
-        handleNextClickTraining(touchData, "starter");
+        handleNextClickTraining(touchData, "starter", currentPage);
       }
     };
   
@@ -72,6 +72,11 @@ function training() {
         messageRef.current = false;
       }
     };
+
+    const setModelshow = () =>{
+      handleNextClickTraining(touchData, "starter", currentPage);
+      setModalShow(true)
+    }
 
   return (
     <div className='container'>
@@ -172,7 +177,7 @@ function training() {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 8 
                 ?  ( <button  onClick={handleNextPage}><Link to={`/game/train/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={() => setModalShow(true)}> <ArrowForwardIosIcon /></button>)}
+                : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="play"/>
           </div>
           <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>

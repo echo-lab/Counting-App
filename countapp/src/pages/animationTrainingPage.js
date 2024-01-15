@@ -164,7 +164,7 @@ useEffect(() => {
       setSelectedTray(null);
       spokenRef.current = false;
       spokenRef2.current = false;
-      handleNextClickTraining(touchData, "animation");
+      handleNextClickTraining(touchData, "animation", currentPage);
       setFirstAudioStarted(false);
     }
   };
@@ -182,6 +182,11 @@ useEffect(() => {
       setFirstAudioStarted(false);
     }
   };
+
+  const setModelshow = () =>{
+    handleNextClickTraining(touchData, "Animation", currentPage);
+    setModalShow(true)
+  }
 
   const storeAnswer = (answerKey, answerValue) => {
     const storedAnswersJSON = localStorage.getItem('animationTrainingAnswers');
@@ -303,7 +308,7 @@ useEffect(() => {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 1 
                 ?  ( <button onClick={handleNextPage}><Link to={`/game/animation/training/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={() => setModalShow(true)}> <ArrowForwardIosIcon /></button>)}
+                : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="animationTrainingPage"/>
           </div>
       </div>

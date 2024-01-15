@@ -207,7 +207,7 @@ const TouchTrainingPage = () => {
       setSelectedTray(null);
       spokenRef.current = false;
       spokenRef2.current = false;
-      handleNextClickTraining(touchData, "touch");
+      handleNextClickTraining(touchData, "touch", currentPage);
     }
   };
 
@@ -224,6 +224,11 @@ const TouchTrainingPage = () => {
       spokenRef2.current = false;
     }
   };
+
+  const setModelshow = () =>{
+    handleNextClickTraining(touchData, "touch", currentPage);
+    setModalShow(true)
+  }
 
   const storeAnswer = (answerKey, answerValue) => {
     const storedAnswersJSON = localStorage.getItem('TouchTrainingAnswers');
@@ -345,7 +350,7 @@ const TouchTrainingPage = () => {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 1 
                 ?  ( <button onClick={handleNextPage}><Link to={`/game/touch/training/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={() => setModalShow(true)}> <ArrowForwardIosIcon /></button>)}
+                : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>

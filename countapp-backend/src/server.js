@@ -1,6 +1,9 @@
 import {connectToDb} from './db.js';
 import express from 'express';
 import './data/userDetails.js';
+import './data/touchDetails.js';
+import './data/trainingTouchDetails.js';
+import './data/practiceTouchDetails.js';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
@@ -35,6 +38,9 @@ const GOOGLE_API_KEY = keyData.key;
 
 
 const User = mongoose.model("UserInfo");
+const UserTouchDetails = mongoose.model("TouchDetails");
+const UserTrainingTouchDetails = mongoose.model("TrainingTouchDetails");
+const UserPracticeTouchDetails = mongoose.model("PracticeTouchDetails");
 
 app.post("/register", async (req, res) => {
     const { name } = req.body;
@@ -140,79 +146,58 @@ app.post("/register", async (req, res) => {
   });
 
 
-  app.post('/saveTrainingTouchData', (req, res) => {
+  app.post('/save/Touch/Data', async (req, res) => {
+    const { touchData, category, pageNumber } = req.body;
+
     try {
-      console.log('Received request with body:', req.body);
-      const { touchData } = req.body; 
-      const {typeOfTraining } = req.body;
-      console.log('Parsed touch data:', typeOfTraining);
-      const dataToWrite = `${typeOfTraining}: ${JSON.stringify(touchData)}`;
-      fs.writeFileSync(`${dataPath}/TrainingTouchData.txt`, dataToWrite);
-  
-      res.status(200).send('Touch data saved successfully.');
+      await UserTouchDetails.create({
+        touchData: touchData,
+        category: category,
+        pageNumber: pageNumber,
+      });
+
+      console.log('Touch data saved to the database.');
+      res.status(200).json({ status: 'ok', message: 'Data saved successfully' });
     } catch (error) {
-      console.error('Error saving touch data:', error);
-      res.status(500).send('Error saving touch data.');
+      console.error('Error saving training touch data:', error);
+      res.status(500).json({ status: 'error', message: 'Internal server error' });
     }
   });
 
-  app.post('/save/Game/Touch/Baseline/Data', (req, res) => {
+
+  app.post('/save/Training/TouchData', async (req, res) => {
+    const { touchData, category, pageNumber } = req.body;
+
     try {
-      console.log('Received request with body:', req.body);
-      const { touchData } = req.body; 
-      console.log('Parsed touch data:', touchData);
-  
-      fs.writeFileSync(`${dataPath}/BaselineGameData.txt`, JSON.stringify(touchData));
-  
-      res.status(200).send('Touch data saved successfully.');
+      await UserTrainingTouchDetails.create({
+        touchData: touchData,
+        category: category,
+        pageNumber: pageNumber,
+      });
+
+      console.log('Training touch data saved to the database.');
+      res.status(200).json({ status: 'ok', message: 'Data saved successfully' });
     } catch (error) {
-      console.error('Error saving touch data:', error);
-      res.status(500).send('Error saving touch data.');
+      console.error('Error saving training touch data:', error);
+      res.status(500).json({ status: 'error', message: 'Internal server error' });
     }
   });
 
-  app.post('/save/Game/Touch/Data', (req, res) => {
-    try {
-      console.log('Received request with body:', req.body);
-      const { touchData } = req.body; 
-      console.log('Parsed touch data:', touchData);
-  
-      fs.writeFileSync(`${dataPath}/TouchGameData.txt`, JSON.stringify(touchData));
-  
-      res.status(200).send('Touch data saved successfully.');
-    } catch (error) {
-      console.error('Error saving touch data:', error);
-      res.status(500).send('Error saving touch data.');
-    }
-  });
+  app.post('/save/Practice/TouchData', async (req, res) => {
+    const { touchData, category, pageNumber } = req.body;
 
-  app.post('/save/Game/Touch/Animation/Data', (req, res) => {
     try {
-      console.log('Received request with body:', req.body);
-      const { touchData } = req.body; 
-      console.log('Parsed touch data:', touchData);
-  
-      fs.writeFileSync(`${dataPath}/AnimationGameData.txt`, JSON.stringify(touchData));
-  
-      res.status(200).send('Touch data saved successfully.');
-    } catch (error) {
-      console.error('Error saving touch data:', error);
-      res.status(500).send('Error saving touch data.');
-    }
-  });
+      await UserPracticeTouchDetails.create({
+        touchData: touchData,
+        category: category,
+        pageNumber: pageNumber,
+      });
 
-  app.post('/savePracticeTouchData', (req, res) => {
-    try {
-      console.log('Received request with body:', req.body);
-      const { touchData } = req.body; 
-      console.log('Parsed touch data:', touchData);
-  
-      fs.writeFileSync(`${dataPath}/PracticeTouchData.txt`, JSON.stringify(touchData));
-  
-      res.status(200).send('Touch data saved successfully.');
+      console.log('Practice touch data saved to the database.');
+      res.status(200).json({ status: 'ok', message: 'Data saved successfully' });
     } catch (error) {
-      console.error('Error saving touch data:', error);
-      res.status(500).send('Error saving touch data.');
+      console.error('Error saving training touch data:', error);
+      res.status(500).json({ status: 'error', message: 'Internal server error' });
     }
   });
 

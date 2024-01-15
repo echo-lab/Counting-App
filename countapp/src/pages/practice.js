@@ -60,7 +60,7 @@ function practice() {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 21 
                 ?  ( <button onClick={handleNextButton}><Link to={`/game/practice/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button> <Link to="/game/home"><ArrowForwardIosIcon /></Link></button>)}
+                : (<button onClick={handleNextButton}> <Link to="/game/home"><ArrowForwardIosIcon /></Link></button>)}
           </div>
 
           <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
