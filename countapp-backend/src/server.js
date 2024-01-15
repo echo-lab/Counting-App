@@ -27,9 +27,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 
-const JWT_SECRET = keyData.jwt_key;
+
 let rawKeyData = fs.readFileSync(keyPath); 
 let keyData = JSON.parse(rawKeyData);
+const JWT_SECRET = keyData.jwt_key;
 const GOOGLE_API_KEY = keyData.key; 
 
 
