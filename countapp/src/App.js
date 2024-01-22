@@ -12,6 +12,7 @@ import BaseTrainingPage from './pages/baseTraining';
 import AnimationTrainingPage from './pages/animationTrainingPage';
 import TouchTrainingPage from './pages/TouchTrainingPage';
 import { SoundProvider } from './helpers/SoundContext';
+import { AppDataProvider } from './context/Context.js';
 import './App.css';
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
   return (
     <div className="App">
       <SoundProvider>
+      <AppDataProvider>
       <Router>
         <Routes>
           <Route path='/' element={isLoggedIn == "true"? <Home /> : <SignupPage />}/>
@@ -33,6 +35,7 @@ function App() {
           <Route path='/game/touch/training/:page' element={<TouchTrainingPage />}/>
         </Routes>
      </Router>
+     </AppDataProvider>
      </SoundProvider>
     </div>
   );

@@ -2,20 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "../styles/gamePage.css";
-import Data from "../data/data.js";
+import { useAppData } from "../context/Context.js";
 import Tray1 from "../assests/TrayB.png";
-import Trill1 from "../assests/audio/1.mp3";
-import Trill2 from "../assests/audio/2.mp3";
-import Trill3 from "../assests/audio/3.mp3";
-import Trill4 from "../assests/audio/4.mp3";
-import Trill5 from "../assests/audio/5.mp3";
-import Trill6 from "../assests/audio/6.mp3";
-import Trill7 from "../assests/audio/7.mp3";
-import Trill8 from "../assests/audio/8.mp3";
-import Trill9 from "../assests/audio/9.mp3";
-import Trill10 from "../assests/audio/10.mp3";
-import total10 from "../assests/audio/CirclingT1.mp3"
-import total5 from "../assests/audio/CirclingT2.mp3"
 import BigBird from "../assests/BigBird.png";
 import greenTray from "../assests/greenTray.png";
 import purpleTray from "../assests/purpleTray.png"
@@ -30,6 +18,7 @@ import DialogBox from "../components/dialogBox";
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 const gamePage = () => {
+  const { Data, audioData } = useAppData();
   const { page } = useParams();
   const currentPage = parseInt(page);
   const [cookieCount, setCookieCount] = useState(0);
@@ -54,10 +43,10 @@ const gamePage = () => {
         const audioElement2 = new Audio();
         switch (Data.pages[currentPage].cookies.length) {
           case 5:
-            audioElement2.src = total5;
+            audioElement2.src = audioData.circling.total5;
             break;
           case 10:
-            audioElement2.src = total10;
+            audioElement2.src = audioData.circling.total10;
             break;
           default:
             return;
@@ -139,34 +128,34 @@ const gamePage = () => {
     
             switch (id) {
               case "1":
-                audioElement.src = Trill1;
+                audioElement.src = audioData.trills[0];;
                 break;
               case "2":
-                audioElement.src = Trill2;
+                audioElement.src = audioData.trills[1];;
                 break;
               case "3":
-                audioElement.src = Trill3;
+                audioElement.src = audioData.trills[2];;
                 break;
               case "4":
-                audioElement.src = Trill4;
+                audioElement.src = audioData.trills[3];;
                 break;
               case "5":
-                audioElement.src = Trill5;
+                audioElement.src = audioData.trills[4];;
                 break;
               case "6":
-                audioElement.src = Trill6;
+                audioElement.src = audioData.trills[5];;
                 break;
               case "7":
-                audioElement.src = Trill7;
+                audioElement.src = audioData.trills[6];;
                 break;
               case "8":
-                audioElement.src = Trill8;
+                audioElement.src = audioData.trills[7];;
                 break;
               case "9":
-                audioElement.src = Trill9;
+                audioElement.src = audioData.trills[8];;
                 break;
               case "10":
-                audioElement.src = Trill10;
+                audioElement.src = audioData.trills[9];;
                 break;
               default:
                 return;

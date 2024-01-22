@@ -2,7 +2,7 @@ import React, {useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "../styles/training.css";
-import trainData from  "../data/trainData.js";
+import { useAppData } from "../context/Context.js";
 import ImageContainer from '../components/imageContainer';
 import Tray1 from "../assests/TrayB.png";
 import BigBird from "../assests/BigBird.png";
@@ -18,6 +18,7 @@ import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchD
 
 
 function training() {
+    const { trainData } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const { soundEnabled } = useSound();

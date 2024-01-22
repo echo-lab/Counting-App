@@ -2,7 +2,7 @@ import React from "react";
 import {useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import baseData from  "../data/baseData.js";
+import { useAppData } from "../context/Context.js";
 import Tray1 from "../assests/TrayB.png";
 import BigBird from "../assests/BigBird.png";
 import greenTray from "../assests/greenTray.png";
@@ -14,6 +14,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 function basePage() {
+    const { baseData } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const messageRef = useRef(false);

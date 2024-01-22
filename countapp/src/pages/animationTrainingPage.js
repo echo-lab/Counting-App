@@ -2,20 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import "../styles/gamePage.css";
-import sectionTrainData from "../data/sectionTrainingData.js";
+import { useAppData } from "../context/Context.js";
 import Tray1 from "../assests/TrayB.png";
-import Trill1 from "../assests/audio/1.mp3";
-import Trill2 from "../assests/audio/2.mp3";
-import Trill3 from "../assests/audio/3.mp3";
-import Trill4 from "../assests/audio/4.mp3";
-import Trill5 from "../assests/audio/5.mp3";
-import Trill6 from "../assests/audio/6.mp3";
-import Trill7 from "../assests/audio/7.mp3";
-import Trill8 from "../assests/audio/8.mp3";
-import Trill9 from "../assests/audio/9.mp3";
-import Trill10 from "../assests/audio/10.mp3";
-import total1 from "../assests/audio/circling1cookie.mp3";
-import total2 from "../assests/audio/circling2cookies.mp3";
 import BigBird from "../assests/BigBird.png";
 import greenTray from "../assests/greenTray.png";
 import purpleTray from "../assests/purpleTray.png"
@@ -30,6 +18,7 @@ import DialogBox from "../components/dialogBox";
 import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchData';
 
 const animationTrainingPage = () => {
+  const { sectionTrainData , audioData } = useAppData();
   const { page } = useParams();
   const currentPage =  parseInt(page);
   const [showBigBird, setShowBigBird] = useState(false);
@@ -49,7 +38,7 @@ const animationTrainingPage = () => {
   const [firstAudioStarted, setFirstAudioStarted] = useState(false);
 
 
-  const audioUrls = [Trill1, Trill2,Trill3,Trill4,Trill5,Trill6,Trill7,Trill8,Trill9,Trill10];
+  const audioUrls = [audioData.trills[0], audioData.trills[1],audioData.trills[2],audioData.trills[3],audioData.trills[4],audioData.trills[5],audioData.trills[6],audioData.trills[7],audioData.trills[8],audioData.trills[9]];
 
 
   const handleAnimationFinish = () => {
@@ -58,10 +47,10 @@ const animationTrainingPage = () => {
         const audioElement2 = new Audio();
         switch (sectionTrainData.pages[currentPage].cookies.length) {
           case 1:
-            audioElement2.src = total1;
+            audioElement2.src = audioData.circling.total1;
             break;
           case 2:
-            audioElement2.src = total2;
+            audioElement2.src = audioData.circling.total2;
             break;
           default:
             return;
