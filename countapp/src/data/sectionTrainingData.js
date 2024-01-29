@@ -1,6 +1,7 @@
 const sectionTrainingData = {
     pages: [
         {
+            message:[" Cookie Monster has 2 cookies. Can Big Bird also have 2 cookies? Which tray has 2 cookies? Green? or purple?"],
             message1:["Cookie Monster has 2 cookies. Let's count together!"],
             message2:["Can Big Bird also have 2 cookies? Which tray has 2 cookies? Green? or purple?"],
             cookies: [
@@ -49,6 +50,7 @@ const sectionTrainingData = {
             ],
           },
           {
+            message:[" Cookie Monster has 1 cookie. Can Big Bird also have 1 cookie? Which tray has 1 cookie? Green? or purple?"],
             message1:["Cookie Monster has 1 cookie. Let's count together!"],
             message2:["Can Big Bird also have 1 cookie? Which tray has 1 cookie? Green? or purple?"],
             cookies: [

@@ -11,6 +11,8 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DialogBox from "../components/dialogBox";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import { useSound } from '../helpers/SoundContext';
+import { textToSpeech } from '../helpers/textToSpeech';
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
 
 function basePage() {
@@ -22,6 +24,26 @@ function basePage() {
     const [touchData, setTouchData] = useState([]);
     const [selectedTray, setSelectedTray] = useState(null);
     const once = useRef(false)
+    const spokenRef = useRef(false);
+    const { soundEnabled } = useSound();
+
+
+    const speakUtterance = () => {
+      if(soundEnabled){
+      const utterance = `${baseData.pages[currentPage].message}`;
+
+      setTimeout(() => {
+        textToSpeech(utterance)
+      }, 1000);
+    }
+    };
+
+    useEffect(() => {
+      if (!spokenRef.current) {
+        speakUtterance();
+        spokenRef.current = true;
+      }
+    }, [currentPage]);
 
 
     useEffect(() => {
@@ -57,6 +79,7 @@ function basePage() {
       const handleNextPage = () => {
         if (currentPage < 3) {
           messageRef.current = false;
+          spokenRef.current = false;
           handleNextClickTouchData(touchData, "Baseline", currentPage);
           setSelectedTray(null);
         }
@@ -65,6 +88,7 @@ function basePage() {
       const handlePreviousPage = () => {
         if (currentPage > 0) {
           messageRef.current = false;
+          spokenRef.current = false;
           setSelectedTray(null);
         }
       };
