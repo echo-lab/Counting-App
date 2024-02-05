@@ -19,7 +19,7 @@ const keyPath = path.join(__dirname, '/Key/key.json');
 const dataPath = path.join(__dirname, '/data');
 
 const corsOptions = {
-  origin: 'https://talemate.cs.vt.edu:3000',
+  origin: 'https://talemate.cs.vt.edu:3100',
   methods: ['GET', 'POST'],
   credentials: true
 };
