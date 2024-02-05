@@ -52,9 +52,10 @@ app.post("/register", async (req, res) => {
           baselineTrainingAnswers: null,
           TouchTrainingAnswers: null,
           animationTrainingAnswers: null,
-          touchCategoryAnswers: null,
-          animationCategoryAnswers: null,
-          baselineCategoryAnswers: null,
+          touchTestAnswers: null,
+          animationTestAnswers: null,
+          baselineTestAnswers: null,
+          practiceAnswers: null,
         },
       });
 
@@ -125,17 +126,21 @@ app.post("/register", async (req, res) => {
   //   }
   // });
 
-  app.post('/submit-answers', async (req, res) => {
+  app.post('/submit/answers', async (req, res) => {
     try{
-      const answers = req.body;
+      const { answers, pageType }= req.body;
       const token = req.headers.authorization.split('Bearer ')[1];
 
       const user = jwt.verify(token, JWT_SECRET);
       const username = user.name;
 
+      let updateField = {};
+      updateField[`answers.${pageType}`] = answers;
+  
       const updatedUser = await User.findOneAndUpdate(
-        { uname :username },
-        { answers: answers}
+        { uname: username },
+        { $set: updateField },
+        { new: true }
       );
 
       res.json(updatedUser);

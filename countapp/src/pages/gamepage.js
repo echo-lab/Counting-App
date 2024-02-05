@@ -16,6 +16,7 @@ import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
+import { saveAnswers } from "../helpers/SaveAnswers";
 
 const gamePage = () => {
   const { Data, audioData } = useAppData();
@@ -198,6 +199,7 @@ const gamePage = () => {
       spokenRef.current = false;
       spokenRef2.current = false;
       handleNextClickTouchData(touchData, "Touch", currentPage);
+      saveAnswers("touchTest");
     }
   };
 
@@ -221,12 +223,12 @@ const gamePage = () => {
   }
 
   const storeAnswer = (answerKey, answerValue) => {
-    const storedAnswersJSON = localStorage.getItem('touchCategoryAnswers');
+    const storedAnswersJSON = localStorage.getItem('touchTestAnswers');
     const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
 
     storedAnswersObject[answerKey] = answerValue;
   
-    localStorage.setItem('touchCategoryAnswers', JSON.stringify(storedAnswersObject));
+    localStorage.setItem('touchTestAnswers', JSON.stringify(storedAnswersObject));
   };
 
   const handleTrayClick = (trayType) => {

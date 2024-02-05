@@ -16,6 +16,7 @@ import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
+import { saveAnswers } from "../helpers/SaveAnswers";
 
 const animationPage = () => {
   const { animationData, audioData } = useAppData();
@@ -155,6 +156,7 @@ useEffect(() => {
       spokenRef2.current = false;
       handleNextClickTouchData(touchData, "Animation", currentPage);
       setFirstAudioStarted(false);
+      saveAnswers("animationTest");
     }
   };
 
@@ -178,12 +180,12 @@ useEffect(() => {
   }
 
   const storeAnswer = (answerKey, answerValue) => {
-    const storedAnswersJSON = localStorage.getItem('animationCategoryAnswers');
+    const storedAnswersJSON = localStorage.getItem('animationTestAnswers');
     const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
 
     storedAnswersObject[answerKey] = answerValue;
   
-    localStorage.setItem('animationCategoryAnswers', JSON.stringify(storedAnswersObject));
+    localStorage.setItem('animationTestAnswers', JSON.stringify(storedAnswersObject));
   };
 
   const handleTrayClick = (trayType) => {

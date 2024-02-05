@@ -6,10 +6,9 @@ import image3 from "../assests/image3.jpg";
 import "bootstrap/dist/css/bootstrap.css";
 import Profile from "../components/profile";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import SaveIcon from '@mui/icons-material/Save';
 import { useSound } from "../helpers/SoundContext";
-import { saveAnswers } from "../helpers/SaveAnswers";
 import { BASE_URL } from '../helpers/constants.js';
+
 
 function Home() {
   const [userData, setuserData] = useState("");
@@ -49,14 +48,9 @@ function Home() {
     setSoundEnabled(!textToSpeechEnabled);
   };
 
-  const handleSave = () => {
-    saveAnswers();
-    console.log("hi")
-  };
 
   return (
     <div className="home">
-       <button onClick={handleSave} className="save-btn"><SaveIcon /></button>
       <div className="toggle">
         <label className="toggle-label">
           Enable Sound:
@@ -84,21 +78,21 @@ function Home() {
       <div className="container">
       <div className="row align-items-center">
         <div className="col-2 justify-content-center">
-          <button className="hmMenu btn-lg "><Link to="/game/train/0">Base Training</Link></button>
+          <button className="hmMenu btn-lg "><Link to="/game/train/0">Introduction</Link></button>
         </div>
         <div className="col-8">
         <div className="row centered-row">
               <div className="menu-container">
-                <button className="menu-button btn-lg btn-block"><Link to="/game/base/0">Baseline Category</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/play/0">Touch Category</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/play/0">Animated Category</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/base/training/0">Baseline Training</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/training/0">Animated Training</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/touch/training/0">Touch Training</Link></button>
               </div>
             </div>
             <div className="row centered-row">
               <div className="menu-container">
-                <button className="menu-button btn-lg btn-block"><Link to="/game/base/training/0">Baseline Training</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/touch/training/0">Touch Training</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/training/0">Animated Training</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/base/0">Baseline Task</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/play/0">Animated Task</Link></button>
+                <button className="menu-button btn-lg btn-block"><Link to="/game/play/0">Touch Task</Link></button> 
               </div>
           </div>
         </div>

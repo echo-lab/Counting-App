@@ -1,39 +1,66 @@
 import { BASE_URL } from '../helpers/constants.js';
 
-export async function saveAnswers() {
-    const baselineTrainingAnswers = localStorage.getItem('baselineTrainingAnswers');
-    const TouchTrainingAnswers = localStorage.getItem('TouchTrainingAnswers');
-    const animationTrainingAnswers = localStorage.getItem('animationTrainingAnswers');
-    const touchCategoryAnswers = localStorage.getItem('touchCategoryAnswers');
-    const animationCategoryAnswers = localStorage.getItem('animationCategoryAnswers');
-    const baselineCategoryAnswers = localStorage.getItem('baselineCategoryAnswers');
-    const token = window.localStorage.getItem("token");
-    try {
-    const answerData = {
-        baselineTrainingAnswers: baselineTrainingAnswers,
-        TouchTrainingAnswers: TouchTrainingAnswers,
-        animationTrainingAnswers: animationTrainingAnswers,
-        touchCategoryAnswers: touchCategoryAnswers,
-        animationCategoryAnswers: animationCategoryAnswers,
-        baselineCategoryAnswers: baselineCategoryAnswers,
+export async function saveAnswers(pageType) {
+  const token = window.localStorage.getItem("token");
+
+  try {
+    let answersKey;
+    let answersData;
+
+    switch (pageType) {
+      case 'baselineTraining':
+        answersKey = 'baselineTrainingAnswers';
+        break;
+      case 'touchTraining':
+        answersKey = 'TouchTrainingAnswers';
+        break;
+      case 'animationTraining':
+        answersKey = 'animationTrainingAnswers';
+        break;
+      case 'touchTest':
+        answersKey = 'touchTestAnswers';
+        break;
+      case 'animationTest':
+        answersKey = 'animationTestAnswers';
+        break;
+      case 'baselineTest':
+        answersKey = 'baselineTestAnswers';
+        break;
+      case 'practice':
+        answersKey = 'practiceAnswers';
+        break;
+      default:
+        throw new Error('Invalid page type');
+    }
+
+    const answers = localStorage.getItem(answersKey);
+
+    if (!answers) {
+      console.error(`No answers found for ${pageType}`);
+      return;
+    }
+
+    answersData = {
+       answers : answers,
+       pageType: answersKey
     };
 
-    const response = await fetch(`${BASE_URL}/submit-answers`, {
+    const response = await fetch(`${BASE_URL}/submit/answers`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(answerData),
+      body: JSON.stringify(answersData),
     });
 
     if (!response.ok) {
-        throw new Error('Failed to send answers to the backend');
-      }
-  
-      const data = await response.json();
-      console.log('Answers sent successfully:', data);
+      throw new Error(`Failed to send ${pageType} answers to the backend`);
+    }
+
+    const data = await response.json();
+    console.log(`${pageType} Answers sent successfully:`, data);
   } catch (error) {
-    console.error('Error in Storing Answers:', error);
+    console.error(`Error in storing ${pageType} answers:`, error);
   }
-  }
+}

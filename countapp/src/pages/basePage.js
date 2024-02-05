@@ -14,6 +14,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
+import { saveAnswers } from "../helpers/SaveAnswers";
 
 function basePage() {
     const { baseData } = useAppData();
@@ -63,12 +64,12 @@ function basePage() {
       }, []);
 
       const storeAnswer = (answerKey, answerValue) => {
-        const storedAnswersJSON = localStorage.getItem('baselineCategoryAnswers');
+        const storedAnswersJSON = localStorage.getItem('baselineTestAnswers');
         const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
     
         storedAnswersObject[answerKey] = answerValue;
       
-        localStorage.setItem('baselineCategoryAnswers', JSON.stringify(storedAnswersObject));
+        localStorage.setItem('baselineTestAnswers', JSON.stringify(storedAnswersObject));
       };
     
       const handleTrayClick = (trayType) => {
@@ -82,6 +83,7 @@ function basePage() {
           spokenRef.current = false;
           handleNextClickTouchData(touchData, "Baseline", currentPage);
           setSelectedTray(null);
+          saveAnswers("baselineTest");
         }
       };
     

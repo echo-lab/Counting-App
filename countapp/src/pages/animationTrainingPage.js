@@ -16,6 +16,7 @@ import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
 import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchData';
+import { saveAnswers } from "../helpers/SaveAnswers";
 
 const animationTrainingPage = () => {
   const { sectionTrainData , audioData } = useAppData();
@@ -155,6 +156,7 @@ useEffect(() => {
       spokenRef2.current = false;
       handleNextClickTraining(touchData, "animation", currentPage);
       setFirstAudioStarted(false);
+      saveAnswers("animationTraining");
     }
   };
 

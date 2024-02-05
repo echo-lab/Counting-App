@@ -14,6 +14,7 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchData';
+import { saveAnswers } from "../helpers/SaveAnswers";
 
 function basePage() {
     const { sectionTrainData } = useAppData();
@@ -82,6 +83,7 @@ function basePage() {
           spokenRef.current = false;
           setSelectedTray(null);
           handleNextClickTraining(touchData, "baseline", currentPage);
+          saveAnswers("baselineTraining");
         }
       };
     
