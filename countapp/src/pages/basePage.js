@@ -24,6 +24,9 @@ function basePage() {
     const [modalShow, setModalShow] = useState(false);
     const [touchData, setTouchData] = useState([]);
     const [selectedTray, setSelectedTray] = useState(null);
+    const [showGrayArea, setshowGrayArea] = useState(false);
+    const [showBigBird, setShowBigBird] = useState(false);
+    const [showTray2, setShowTray2] = useState(false);
     const once = useRef(false)
     const spokenRef = useRef(false);
     const { soundEnabled } = useSound();
@@ -34,11 +37,17 @@ function basePage() {
       const utterance = `${baseData.pages[currentPage].message}`;
 
       setTimeout(() => {
-        textToSpeech(utterance)
+        textToSpeech(utterance, handleSpeechEnd)
       }, 1000);
     }
     };
 
+    function handleSpeechEnd() {
+      setshowGrayArea(true);
+      setShowBigBird(true);
+      setShowTray2(true);
+    }
+  
     useEffect(() => {
       if (!spokenRef.current) {
         speakUtterance();
@@ -81,6 +90,9 @@ function basePage() {
         if (currentPage < 3) {
           messageRef.current = false;
           spokenRef.current = false;
+          setshowGrayArea(false);
+          setShowTray2(false);
+          setShowBigBird(false);
           handleNextClickTouchData(touchData, "Baseline", currentPage);
           setSelectedTray(null);
           saveAnswers("baselineTest");
@@ -91,6 +103,9 @@ function basePage() {
         if (currentPage > 0) {
           messageRef.current = false;
           spokenRef.current = false;
+          setshowGrayArea(false);
+          setShowTray2(false);
+          setShowBigBird(false);
           setSelectedTray(null);
         }
       };
@@ -107,6 +122,8 @@ function basePage() {
     <div className='container'>
     <div className="row">
       <div className="col-2  cookiecol">
+      <div className={showGrayArea? "col-4 cookiecol graybg" : "col-4 cookiecol"}>
+          {showGrayArea  && <div className="overlay"></div>}
         <div className="background-container">
           <img src={Tray1} alt="tray1" className="tray1" />
         </div>
@@ -134,8 +151,10 @@ function basePage() {
             <p></p>
           )}
         </div>
+        </div>
       </div>
       <div className="col-8 position-absolute tray-container">
+      {showTray2 && (
       <div>
               <div
                 className={`tray-overlay1 ${selectedTray === "greenTray" ? "glow1" : ""}`}
@@ -164,7 +183,8 @@ function basePage() {
               ))}
               </div>
             </div>
-
+            )}
+            {showTray2 && (
             <div> 
                 <div
                   className={`tray-overlay2 ${selectedTray === "purpleTray" ? "glow2" : ""}`}
@@ -193,13 +213,10 @@ function basePage() {
               ))}
               </div>
             </div>
-        <img
-          src={BigBird}
-          className="bigBird"
-          id="bigBird"
-          key="bigBird"
-          alt="bigbird"
-        />
+             )}
+            {showBigBird && (
+              <img src={BigBird} className="bigBird" id="bigBird" key="bigBird" alt="bigbird"/>
+            )}
       </div>
 
       <div className="buttons">
