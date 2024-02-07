@@ -19,7 +19,7 @@ import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchD
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 const animationTrainingPage = () => {
-  const { sectionTrainData , audioData } = useAppData();
+  const { sectionTrainData , audioData, selectedOption } = useAppData();
   const { page } = useParams();
   const currentPage =  parseInt(page);
   const [showBigBird, setShowBigBird] = useState(false);
@@ -303,7 +303,7 @@ useEffect(() => {
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="animationTrainingPage"/>
           </div>
       </div>
-      <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+      <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
       </div>
   );
 };

@@ -7,10 +7,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import Profile from "../components/profile";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useSound } from "../helpers/SoundContext";
+import { useAppData } from '../context/Context';
 import { BASE_URL } from '../helpers/constants.js';
 
 
+
 function Home() {
+  const { selectedOption } = useAppData();
   const [userData, setuserData] = useState("");
   const [profileOpen, setProfileOpen] = useState(false);
   const { soundEnabled, setSoundEnabled } = useSound();
@@ -18,7 +21,7 @@ function Home() {
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
-    console.log("token:", token);
+
     const fetchData = async () => {
       try {
         const response = await axios.post(`${BASE_URL}/userData`, {
@@ -77,29 +80,38 @@ function Home() {
       )}
       <div className="container">
       <div className="row align-items-center">
-        <div className="col-2 justify-content-center">
-          <button className="hmMenu btn-lg "><Link to="/game/train/0">Introduction</Link></button>
         </div>
-        <div className="col-8">
-        <div className="row centered-row">
-              <div className="menu-container">
-                <button className="menu-button btn-lg btn-block"><Link to="/game/base/training/0">Baseline Training</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/training/0">Animated Training</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/touch/training/0">Touch Training</Link></button>
-              </div>
-            </div>
-            <div className="row centered-row">
-              <div className="menu-container">
-                <button className="menu-button btn-lg btn-block"><Link to="/game/base/0">Baseline Task</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/animation/play/0">Animated Task</Link></button>
-                <button className="menu-button btn-lg btn-block"><Link to="/game/play/0">Touch Task</Link></button> 
-              </div>
+        {selectedOption === 'A' ? (
+          <div className="col">
+            <ul className="button-list">
+              <li><Link to="/game/train/0"><button className="menu-button">Introduction</button></Link></li>
+              <li><Link to="/game/base/training/0"><button className="menu-button">Baseline Training 1</button></Link></li>
+              <li><Link to="/game/base/0"><button className="menu-button">Baseline Task 1</button></Link></li>
+              <li><Link to="/game/animation/training/0"><button className="menu-button">Animated Training</button></Link></li>
+              <li><Link to="/game/animation/play/0"><button className="menu-button">Animated Task</button></Link></li>
+              <li><Link to="/game/base2/training/0"><button className="menu-button">Baseline Training 2</button></Link></li>
+              <li><Link to="/game/base2/0"><button className="menu-button">Baseline Task 2</button></Link></li>
+              <li><Link to="/game/touch/training/0"><button className="menu-button">Touch Training</button></Link></li>
+              <li><Link to="/game/touch/play/0"><button className="menu-button">Touch Task</button></Link></li>
+              <li><Link to="/game/practice/0"><button className="menu-button">Practice Counting</button></Link></li>
+            </ul>
           </div>
-        </div>
-        <div className="col-2">
-          <button className="hmMenu btn-lg"><Link to="/game/practice/0">Practice Counting</Link></button>
-        </div>
-      </div>
+        ) : (
+          <div className="col">
+            <div className="button-list">
+            <li><Link to="/game/train/0"><button className="menu-button">Introduction</button></Link></li>
+              <li><Link to="/game/base/training/0"><button className="menu-button">Baseline Training 1</button></Link></li>
+              <li><Link to="/game/base/0"><button className="menu-button">Baseline Task 1</button></Link></li>
+              <li><Link to="/game/touch/training/0"><button className="menu-button">Touch Training</button></Link></li>
+              <li><Link to="/game/touch/play/0"><button className="menu-button">Touch Task</button></Link></li>
+              <li><Link to="/game/base2/training/0"><button className="menu-button">Baseline Training 2</button></Link></li>
+              <li><Link to="/game/base2/0"><button className="menu-button">Baseline Task 2</button></Link></li>
+              <li><Link to="/game/animation/training/0"><button className="menu-button">Animated Training</button></Link></li>
+              <li><Link to="/game/animation/play/0"><button className="menu-button">Animated Task</button></Link></li>
+              <li><Link to="/game/practice/0"><button className="menu-button">Practice Counting</button></Link></li>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

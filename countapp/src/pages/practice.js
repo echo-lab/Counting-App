@@ -10,6 +10,7 @@ import {handleInteraction, handleNextClickPractice} from '../helpers/imageTouchD
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 function practice() {
+    const { practiceData, selectedOption } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const [touchData, setTouchData] = useState([]);
@@ -79,10 +80,10 @@ function practice() {
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 21 
                 ?  ( <button onClick={handleNextButton}><Link to={`/game/practice/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
-                : (<button onClick={handleNextButton}> <Link to="/game/home"><ArrowForwardIosIcon /></Link></button>)}
+                : (<button onClick={handleNextButton}> <Link to={`/game/home/${selectedOption}`}><ArrowForwardIosIcon /></Link></button>)}
           </div>
 
-          <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+          <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
         </div>
   )
 }

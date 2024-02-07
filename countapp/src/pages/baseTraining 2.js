@@ -9,15 +9,15 @@ import greenTray from "../assests/greenTray.png";
 import purpleTray from "../assests/purpleTray.png"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import DialogBox from "../components/dialogBox";
+import DialogBox from "../components/dialogBox.js";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import { useSound } from '../helpers/SoundContext';
-import { textToSpeech } from '../helpers/textToSpeech';
-import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
-import { saveAnswers } from "../helpers/SaveAnswers";
+import { useSound } from '../helpers/SoundContext.js';
+import { textToSpeech } from '../helpers/textToSpeech.js';
+import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchData.js';
+import { saveAnswers } from "../helpers/SaveAnswers.js";
 
 function basePage() {
-    const { baseData, selectedOption } = useAppData();
+  const { sectionTrainData, selectedOption } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const messageRef = useRef(false);
@@ -34,8 +34,8 @@ function basePage() {
 
     const speakUtterance = () => {
       if(soundEnabled){
-      const utterance = `${baseData.pages[currentPage].message}`;
-
+      const utterance = `${sectionTrainData.pages[currentPage].message}`;
+  
       setTimeout(() => {
         textToSpeech(utterance, handleSpeechEnd)
       }, 1000);
@@ -52,6 +52,7 @@ function basePage() {
       if (!spokenRef.current) {
         speakUtterance();
         spokenRef.current = true;
+       
       }
     }, [currentPage]);
 
@@ -73,12 +74,12 @@ function basePage() {
       }, []);
 
       const storeAnswer = (answerKey, answerValue) => {
-        const storedAnswersJSON = localStorage.getItem('baselineTestAnswers');
+        const storedAnswersJSON = localStorage.getItem('baselineTraining2Answers');
         const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
     
         storedAnswersObject[answerKey] = answerValue;
       
-        localStorage.setItem('baselineTestAnswers', JSON.stringify(storedAnswersObject));
+        localStorage.setItem('baselineTraining2Answers', JSON.stringify(storedAnswersObject));
       };
     
       const handleTrayClick = (trayType) => {
@@ -93,9 +94,9 @@ function basePage() {
           setshowGrayArea(false);
           setShowTray2(false);
           setShowBigBird(false);
-          handleNextClickTouchData(touchData, "Baseline", currentPage);
           setSelectedTray(null);
-          saveAnswers("baselineTest");
+          handleNextClickTraining(touchData, "baseline2", currentPage);
+          saveAnswers("baselineTraining2");
         }
       };
     
@@ -103,16 +104,15 @@ function basePage() {
         if (currentPage > 0) {
           messageRef.current = false;
           spokenRef.current = false;
+          setSelectedTray(null);
           setshowGrayArea(false);
           setShowTray2(false);
           setShowBigBird(false);
-          setSelectedTray(null);
         }
       };
 
-
       const setModelshow = () =>{
-        handleNextClickTouchData(touchData, "Baseline", currentPage);
+        handleNextClickTraining(touchData, "baseline", currentPage);
         setModalShow(true)
       }
 
@@ -129,12 +129,12 @@ function basePage() {
         </div>
         <div className="card">
           <div className="card-body">
-            {baseData.pages[currentPage].message}
+            {sectionTrainData.pages[currentPage].message}
           </div>
         </div>
         <div className="cookieContainer position-absolute">
-          {baseData.pages[currentPage].cookies.length > 0 ? (
-            baseData.pages[currentPage].cookies.map((cookie) => (
+          {sectionTrainData.pages[currentPage].cookies.length > 0 ? (
+            sectionTrainData.pages[currentPage].cookies.map((cookie) => (
               <img
                 key={cookie.id}
                 src={cookie.img}
@@ -168,7 +168,7 @@ function basePage() {
                 key="greenTray"
               />
               <div className="greenBiscuits position-absolute">
-              {baseData.pages[currentPage].greenTray[0].biscuits.map((biscuit) => (
+              {sectionTrainData.pages[currentPage].greenTray[0].biscuits.map((biscuit) => (
                 <img
                   key={biscuit.id}
                   src={biscuit.img}
@@ -198,7 +198,7 @@ function basePage() {
                   alt="purpletray"
                 />
               <div className="greenBiscuits position-absolute">
-              {baseData.pages[currentPage].purpleTray[0].biscuits.map((biscuit) => (
+              {sectionTrainData.pages[currentPage].purpleTray[0].biscuits.map((biscuit) => (
                 <img
                   key={biscuit.id}
                   src={biscuit.img}
@@ -213,7 +213,7 @@ function basePage() {
               ))}
               </div>
             </div>
-             )}
+            )}
             {showBigBird && (
               <img src={BigBird} className="bigBird" id="bigBird" key="bigBird" alt="bigbird"/>
             )}
@@ -222,7 +222,7 @@ function basePage() {
       <div className="buttons">
         {currentPage > 0 ? (
           <button onClick={handlePreviousPage}>
-            <Link to={`/game/base/${currentPage - 1}`}>
+            <Link to={`/game/base2/training/${currentPage - 1}`}>
               <ArrowBackIosIcon />
             </Link>
           </button>
@@ -232,9 +232,9 @@ function basePage() {
             <ArrowBackIosIcon />
           </button>
         )}
-        {currentPage < 3 ? (
+        {currentPage < 1 ? (
           <button onClick={handleNextPage}>
-            <Link to={`/game/base/${currentPage + 1}`}>
+            <Link to={`/game/base2/training/${currentPage + 1}`}>
               <ArrowForwardIosIcon />
             </Link>
           </button>

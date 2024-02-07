@@ -11,6 +11,9 @@ export async function saveAnswers(pageType) {
       case 'baselineTraining':
         answersKey = 'baselineTrainingAnswers';
         break;
+      case 'baselineTraining2':
+          answersKey = 'baselineTraining2Answers';
+          break;
       case 'touchTraining':
         answersKey = 'TouchTrainingAnswers';
         break;
@@ -26,6 +29,9 @@ export async function saveAnswers(pageType) {
       case 'baselineTest':
         answersKey = 'baselineTestAnswers';
         break;
+      case 'baselineTest2':
+          answersKey = 'baselineTest2Answers';
+          break;
       case 'practice':
         answersKey = 'practiceAnswers';
         break;

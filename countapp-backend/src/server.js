@@ -50,11 +50,13 @@ app.post("/register", async (req, res) => {
         uname: name,
         answers: {
           baselineTrainingAnswers: null,
+          baselineTraining2Answers: null,
           TouchTrainingAnswers: null,
           animationTrainingAnswers: null,
           touchTestAnswers: null,
           animationTestAnswers: null,
           baselineTestAnswers: null,
+          baselineTest2Answers: null,
           practiceAnswers: null,
         },
       });

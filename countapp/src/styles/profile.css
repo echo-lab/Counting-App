@@ -29,16 +29,11 @@
     width: 150px;
     border: none;
     background-color: #000;
-    color: #aeaeae;
+    color: white;
     font-size: 15px;
 }
 
-.btn1 a{
-    text-decoration: none;
-}
-
-
-.btn1 a:hover {
+.btn1:hover {
     color: yellow;
 }
 

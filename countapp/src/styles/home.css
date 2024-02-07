@@ -8,42 +8,29 @@
   background-size: 100% 100%;
 }
 
-.centered-row {
-  width: 80%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 10%;
+.button-list {
+  list-style-type: none;
+  margin-top: 5%;
 }
 
-.menu-container {
-  display: flex;
-  flex-direction: row;
-  gap: 5%;
-  width: 100%;
-  margin-left: 10%;
+.button-list li {
+  margin-bottom: 8px;
 }
 
-.menu-button {
-  cursor: pointer;
-  border: none;
-  background: url('../assests/site/menu-icon.png');
-  text-align: center;
-  background-size: 100% 100%;
-  width:600px;
-  height: 200px;
-}
-
-.menu-button a {
+.menu-button{
   color: black;
   text-decoration: none;
   font-weight: 600;
-  max-width: 100px;
+  background-color: #18b7db;
+  border: none;
+  padding: 12px;
+  width: 300px;
 }
 
-.menu-button a:hover {
-  color:rgb(225, 10, 96) ;
+.menu-button:hover {
+  color:white;
   text-decoration: none;
+  background-color: #1151e7;
 }
 
 .profileContainer{
@@ -57,18 +44,6 @@
   right: 5px;
   top: 5px;
   cursor: pointer;
-}
-
-.hmMenu a{
-  text-decoration: none;
-  color: black;
-  font-weight: 600;
-}
-
-.hmMenu a:hover {
-  font-weight: 600;
-  color:rgb(225, 10, 96) ;
-  text-decoration: none;
 }
 
 .toggle-label {

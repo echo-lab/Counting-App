@@ -9,12 +9,12 @@ import greenTray from "../assests/greenTray.png";
 import purpleTray from "../assests/purpleTray.png"
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import DialogBox from "../components/dialogBox";
+import DialogBox from "../components/dialogBox.js";
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import { useSound } from '../helpers/SoundContext';
-import { textToSpeech } from '../helpers/textToSpeech';
-import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData';
-import { saveAnswers } from "../helpers/SaveAnswers";
+import { useSound } from '../helpers/SoundContext.js';
+import { textToSpeech } from '../helpers/textToSpeech.js';
+import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouchData.js';
+import { saveAnswers } from "../helpers/SaveAnswers.js";
 
 function basePage() {
     const { baseData, selectedOption } = useAppData();
@@ -35,7 +35,7 @@ function basePage() {
     const speakUtterance = () => {
       if(soundEnabled){
       const utterance = `${baseData.pages[currentPage].message}`;
-
+  
       setTimeout(() => {
         textToSpeech(utterance, handleSpeechEnd)
       }, 1000);
@@ -73,12 +73,12 @@ function basePage() {
       }, []);
 
       const storeAnswer = (answerKey, answerValue) => {
-        const storedAnswersJSON = localStorage.getItem('baselineTestAnswers');
+        const storedAnswersJSON = localStorage.getItem('baselineTest2Answers');
         const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
     
         storedAnswersObject[answerKey] = answerValue;
       
-        localStorage.setItem('baselineTestAnswers', JSON.stringify(storedAnswersObject));
+        localStorage.setItem('baselineTest2Answers', JSON.stringify(storedAnswersObject));
       };
     
       const handleTrayClick = (trayType) => {
@@ -93,9 +93,9 @@ function basePage() {
           setshowGrayArea(false);
           setShowTray2(false);
           setShowBigBird(false);
-          handleNextClickTouchData(touchData, "Baseline", currentPage);
+          handleNextClickTouchData(touchData, "Baseline2", currentPage);
           setSelectedTray(null);
-          saveAnswers("baselineTest");
+          saveAnswers("baselineTest2");
         }
       };
     
@@ -109,7 +109,6 @@ function basePage() {
           setSelectedTray(null);
         }
       };
-
 
       const setModelshow = () =>{
         handleNextClickTouchData(touchData, "Baseline", currentPage);
@@ -222,7 +221,7 @@ function basePage() {
       <div className="buttons">
         {currentPage > 0 ? (
           <button onClick={handlePreviousPage}>
-            <Link to={`/game/base/${currentPage - 1}`}>
+            <Link to={`/game/base2/${currentPage - 1}`}>
               <ArrowBackIosIcon />
             </Link>
           </button>
@@ -234,7 +233,7 @@ function basePage() {
         )}
         {currentPage < 3 ? (
           <button onClick={handleNextPage}>
-            <Link to={`/game/base/${currentPage + 1}`}>
+            <Link to={`/game/base2/${currentPage + 1}`}>
               <ArrowForwardIosIcon />
             </Link>
           </button>

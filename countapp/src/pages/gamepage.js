@@ -19,7 +19,7 @@ import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouch
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 const gamePage = () => {
-  const { Data, audioData } = useAppData();
+  const { Data, audioData, selectedOption } = useAppData();
   const { page } = useParams();
   const currentPage = parseInt(page);
   const [cookieCount, setCookieCount] = useState(0);
@@ -338,15 +338,15 @@ const gamePage = () => {
           </div>
           <div className="buttons">
               {currentPage > 0 
-                ? (<button onClick={handlePreviousPage}><Link to={`/game/play/${currentPage - 1}`}><ArrowBackIosIcon /></Link></button>) 
+                ? (<button onClick={handlePreviousPage}><Link to={`/game/touch/play/${currentPage - 1}`}><ArrowBackIosIcon /></Link></button>) 
                 : (<button disabled> <ArrowBackIosIcon /></button>)}
               {currentPage < 3 
-                ?  ( <button onClick={handleNextPage}><Link to={`/game/play/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
+                ?  ( <button onClick={handleNextPage}><Link to={`/game/touch/play/${currentPage + 1}`}><ArrowForwardIosIcon /></Link></button>) 
                 : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>
-      <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+      <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
       </div>
   );
 };

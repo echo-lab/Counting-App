@@ -31,7 +31,7 @@ function profile({name}) {
             </button>
             <span className="name mt-3">{name}</span>
             <div className=" d-flex mt-2">
-            <button className="btn1 btn-dark" onClick={handleLogoutClick}><Link to="/">Log Out</Link></button>
+            <Link to="/"><button className="btn1 btn-dark" onClick={handleLogoutClick}>Log Out</button></Link>
             </div>
           </div>
         </div>

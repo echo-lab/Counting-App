@@ -18,7 +18,7 @@ import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchD
 
 
 function training() {
-    const { trainData } = useAppData();
+    const { trainData, selectedOption } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const { soundEnabled } = useSound();
@@ -181,7 +181,7 @@ function training() {
                 : (<button onClick={setModelshow}> <ArrowForwardIosIcon /></button>)}
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="play"/>
           </div>
-          <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+          <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
           </div>
   )
 }

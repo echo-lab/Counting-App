@@ -19,7 +19,7 @@ import {handleInteraction, handleNextClickTouchData} from '../helpers/imageTouch
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 const animationPage = () => {
-  const { animationData, audioData } = useAppData();
+  const { animationData, audioData,selectedOption } = useAppData();
   const { page } = useParams();
   const currentPage =  parseInt(page);
   const [showBigBird, setShowBigBird] = useState(false);
@@ -37,7 +37,6 @@ const animationPage = () => {
   const [startAnimation, setstartAnimation] = useState(false);
   const [touchData, setTouchData] = useState([]);
   const [firstAudioStarted, setFirstAudioStarted] = useState(false);
-
 
   const audioUrls = [audioData.trills[0], audioData.trills[1],audioData.trills[2],audioData.trills[3],audioData.trills[4],audioData.trills[5],audioData.trills[6],audioData.trills[7],audioData.trills[8],audioData.trills[9]];
 
@@ -303,7 +302,7 @@ useEffect(() => {
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>
-      <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+      <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
       </div>
   );
 };

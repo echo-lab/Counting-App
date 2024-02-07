@@ -17,7 +17,7 @@ import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchD
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 function basePage() {
-    const { sectionTrainData } = useAppData();
+    const { sectionTrainData, selectedOption } = useAppData();
     const { page } = useParams();
     const currentPage = parseInt(page);
     const messageRef = useRef(false);
@@ -252,7 +252,7 @@ function basePage() {
       </div>
       <div>
         <button className="homeLogo">
-          <Link to={`/game/home`}>
+          <Link to={`/game/home/${selectedOption}`}>
             <HomeRoundedIcon />
           </Link>
         </button>

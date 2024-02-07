@@ -19,7 +19,7 @@ import {handleInteraction, handleNextClickTraining} from '../helpers/imageTouchD
 import { saveAnswers } from "../helpers/SaveAnswers";
 
 const TouchTrainingPage = () => {
-  const { sectionTrainData, audioData } = useAppData();
+  const { sectionTrainData, audioData, selectedOption } = useAppData();
   const { page } = useParams();
   const currentPage = parseInt(page);
   const [cookieCount, setCookieCount] = useState(0);
@@ -345,7 +345,7 @@ const TouchTrainingPage = () => {
                   <DialogBox show={modalShow} onHide={() => setModalShow(false)} page="practice"/>
           </div>
       </div>
-      <div><button className="homeLogo"><Link to={`/game/home`}><HomeRoundedIcon /></Link></button></div>
+      <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
       </div>
   );
 };

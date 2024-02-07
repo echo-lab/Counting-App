@@ -23,7 +23,7 @@ function SignupPage() {
       }
     });
     setName('');
-    navigate('/game/home');
+    navigate('/game/selection');
   }
 
   return (
