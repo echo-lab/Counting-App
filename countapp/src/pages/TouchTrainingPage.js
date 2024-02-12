@@ -27,7 +27,7 @@ const TouchTrainingPage = () => {
   const [showTray2, setShowTray2] = useState(false);
   const [selectedTray, setSelectedTray] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  const [activeCookieId, setActiveCookieId] = useState(1);
+  const [activeCookieId, setActiveCookieId] = useState(0);
   const [showGrayArea, setshowGrayArea] = useState(false);
   const [isWiggling, setIsWiggling] = useState(false);
   const spokenRef = useRef(false);
@@ -80,7 +80,10 @@ const TouchTrainingPage = () => {
     const utterance = `${sectionTrainData.pages[currentPage].message1}`;
 
     setTimeout(() => {
-      textToSpeech(utterance)
+      textToSpeech(utterance, () => {
+        console.log('Speech has ended.');
+        setActiveCookieId(1)
+      })
     }, 1000);
   }
   };
@@ -192,7 +195,7 @@ const TouchTrainingPage = () => {
       setShowTray2(false);
       setShowBigBird(false);
       setShowMessage(false);
-      setActiveCookieId(1);
+      setActiveCookieId(0);
       setshowGrayArea(false);
       setSelectedTray(null);
       spokenRef.current = false;
@@ -208,7 +211,7 @@ const TouchTrainingPage = () => {
       setShowTray2(false);
       setShowBigBird(false);
       setShowMessage(false);
-      setActiveCookieId(1);
+      setActiveCookieId(0);
       setshowGrayArea(false);
       setSelectedTray(null);
       spokenRef.current = false;

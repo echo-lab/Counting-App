@@ -86,7 +86,7 @@ const animationPage = () => {
       textToSpeech(utterance, () => {
         console.log('Speech has ended. Do something here.');
         setFirstAudioStarted(true);
-        setActiveCookieIndex(0); 
+        setActiveCookieIndex(1); 
       })
     }, 1000);
   }
@@ -123,13 +123,13 @@ const animationPage = () => {
 
 useEffect(() => {
   if(firstAudioStarted == true){
-    if (activeCookieIndex <= animationData.pages[currentPage].cookies.length) {
+    if (activeCookieIndex -1 <= animationData.pages[currentPage].cookies.length) {
       setIsWiggling(true);
-      const audio = new Audio(audioUrls[activeCookieIndex]);
+      const audio = new Audio(audioUrls[activeCookieIndex -1]);
       audio.play();
       audio.onended = () => {
         setIsWiggling(false);
-      if (activeCookieIndex === animationData.pages[currentPage].cookies.length - 1) {
+      if (activeCookieIndex === animationData.pages[currentPage].cookies.length) {
         setActiveCookieIndex(999);
         setstartAnimation(true);
       } else {
@@ -212,7 +212,7 @@ useEffect(() => {
                 key={cookie.id}
                 src={cookie.img}
                 id={cookie.id}
-                className={`${activeCookieIndex+1 === cookie.id ? "circle" : ""} ${activeCookieIndex+1 === cookie.id && isWiggling ? "wiggle" : ""}`}
+                className={`${activeCookieIndex === cookie.id ? "circle" : ""} ${activeCookieIndex === cookie.id && isWiggling ? "wiggle" : ""}`}
                 alt={`Cookie ${cookie.id}`}
                 // onClick={() => moveCircle(cookie.id.toString(), currentPage)}
                 style={{
