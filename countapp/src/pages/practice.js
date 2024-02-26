@@ -2,7 +2,7 @@ import React,{ useState, useEffect, useRef }  from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "../styles/practice.css";
-import practiceData from '../data/practiceData';
+import { useAppData } from "../context/Context.js";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
