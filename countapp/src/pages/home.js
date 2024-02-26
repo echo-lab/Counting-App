@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/home.css";
 import image3 from "../assests/image3.jpg";
@@ -18,6 +18,8 @@ function Home() {
   const [profileOpen, setProfileOpen] = useState(false);
   const { soundEnabled, setSoundEnabled } = useSound();
   const [textToSpeechEnabled, setTextToSpeechEnabled] = useState(soundEnabled);
+  const clickedButtons = (JSON.parse(localStorage.getItem('clickedMenuButtons')) || []);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = window.localStorage.getItem("token");
@@ -49,6 +51,14 @@ function Home() {
   const handleToggle = () => {
     setTextToSpeechEnabled(!textToSpeechEnabled);
     setSoundEnabled(!textToSpeechEnabled);
+  };
+
+  const handleMenubtnClick = (index, link) => {
+    if (!clickedButtons.includes(index)) {
+      clickedButtons.push(index)
+      localStorage.setItem('clickedMenuButtons', JSON.stringify(clickedButtons));
+    }
+    navigate(link);
   };
 
 
@@ -84,31 +94,31 @@ function Home() {
         {selectedOption === 'A' ? (
           <div className="col">
             <ul className="button-list">
-              <li><Link to="/game/train/0"><button className="menu-button">Introduction</button></Link></li>
-              <li><Link to="/game/base/training/0"><button className="menu-button">Baseline Training 1</button></Link></li>
-              <li><Link to="/game/base/0"><button className="menu-button">Baseline Task 1</button></Link></li>
-              <li><Link to="/game/animation/training/0"><button className="menu-button">Animated Training</button></Link></li>
-              <li><Link to="/game/animation/play/0"><button className="menu-button">Animated Task</button></Link></li>
-              <li><Link to="/game/base2/training/0"><button className="menu-button">Baseline Training 2</button></Link></li>
-              <li><Link to="/game/base2/0"><button className="menu-button">Baseline Task 2</button></Link></li>
-              <li><Link to="/game/touch/training/0"><button className="menu-button">Touch Training</button></Link></li>
-              <li><Link to="/game/touch/play/0"><button className="menu-button">Touch Task</button></Link></li>
-              <li><Link to="/game/practice/0"><button className="menu-button">Practice Counting</button></Link></li>
+              <li><button className={`menu-button ${clickedButtons.includes(0) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(0, `/game/train/0`)}>Introduction</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(1) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(1, "/game/base/training/0")}>Baseline Training 1</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(2) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(2, "/game/base/0")}>Baseline Task 1</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(3) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(3, "/game/animation/training/0")}>Animated Training</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(4) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(4, "/game/animation/play/0")}>Animated Task</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(5) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(5, "/game/base2/training/0")}>Baseline Training 2</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(6) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(6, "/game/base2/0")}>Baseline Task 2</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(7) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(7, "/game/touch/training/0")}>Touch Training</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(8) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(8, "/game/touch/play/0")}>Touch Task</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(9) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(9, "/game/practice/0")}>Practice Counting</button></li>
             </ul>
           </div>
         ) : (
           <div className="col">
             <div className="button-list">
-            <li><Link to="/game/train/0"><button className="menu-button">Introduction</button></Link></li>
-              <li><Link to="/game/base/training/0"><button className="menu-button">Baseline Training 1</button></Link></li>
-              <li><Link to="/game/base/0"><button className="menu-button">Baseline Task 1</button></Link></li>
-              <li><Link to="/game/touch/training/0"><button className="menu-button">Touch Training</button></Link></li>
-              <li><Link to="/game/touch/play/0"><button className="menu-button">Touch Task</button></Link></li>
-              <li><Link to="/game/base2/training/0"><button className="menu-button">Baseline Training 2</button></Link></li>
-              <li><Link to="/game/base2/0"><button className="menu-button">Baseline Task 2</button></Link></li>
-              <li><Link to="/game/animation/training/0"><button className="menu-button">Animated Training</button></Link></li>
-              <li><Link to="/game/animation/play/0"><button className="menu-button">Animated Task</button></Link></li>
-              <li><Link to="/game/practice/0"><button className="menu-button">Practice Counting</button></Link></li>
+              <li><button className={`menu-button ${clickedButtons.includes(0) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(0, `/game/train/0`)}>Introduction</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(1) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(1, "/game/base/training/0")}>Baseline Training 1</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(2) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(2, `/game/base/0`)}>Baseline Task 1</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(3) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(3, "/game/touch/training/0")}>Touch Training</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(4) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(4, "/game/touch/play/0")}>Touch Task</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(5) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(5, "/game/base2/training/0")}>Baseline Training 2</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(6) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(6, "/game/base2/0")}>Baseline Task 2</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(7) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(7, "/game/animation/training/0")}>Animated Training</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(8) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(8, "/game/animation/play/0")}>Animated Task</button></li>
+              <li><button className={`menu-button ${clickedButtons.includes(9) ? 'clicked' : ''}`} onClick={() => handleMenubtnClick(9, "/game/practice/0")}>Practice Counting</button></li>
             </div>
           </div>
         )}

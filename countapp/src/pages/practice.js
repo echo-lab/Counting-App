@@ -55,7 +55,7 @@ function practice() {
    
     return (
         <div>
-          <div class="AnswerContainer">
+          <div className="AnswerContainer">
               <input type="text" onChange={handleAnswer} id="numberInput" placeholder="Enter Answer"/>
           </div>
           <div>
