@@ -1,6 +1,7 @@
 import React from "react";
 import {useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import "../styles/base.css";
 import { Link } from 'react-router-dom';
 import { useAppData } from "../context/Context.js";
 import Tray1 from "../assests/TrayB.png";

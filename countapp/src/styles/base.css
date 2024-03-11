@@ -44,10 +44,10 @@
 }
 
 .bigBird {
-  height: 280px;
+  height: 250px;
   width: auto;
   position: absolute;
-  left: 50%;
+  left: 60%;
   transform: translateX(-50%);
   top: 390px;
 }

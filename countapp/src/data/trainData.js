@@ -10,7 +10,7 @@ const trainData = {
       img: require("../assests/train2.png"),
       className: "blueTray",
     },{
-      message:["And this is Big Bird and his trays. What’s the color of this tray? Green! And what’s the color of this tray? Purple! Great job!"],
+      message:["And this is Big Bird and his trays. What’s the color of the left tray? Green! And what’s the color of the right tray? Purple! Great job!"],
       img: require("../assests/train3.png"),
       className: "blueTray",
     },
@@ -124,7 +124,7 @@ const trainData = {
       ],
     },
     {
-      message:["Cookie Monster has 1 cookie. Can Big Bird also have 1 cookie? Which tray has 1 cookies? Green? or purple?"],
+      message:["Cookie Monster has 1 cookie. Can Big Bird also have 1 cookie? Which tray has 1 cookie? Green? or purple?"],
       cookies: [
         {
           id: 1,
