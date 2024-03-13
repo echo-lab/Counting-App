@@ -28,7 +28,7 @@ function SignupPage() {
 
   return (
     <div className="signup">
-          <div className="card signupcard mx-auto">
+          <div className="signupcard mx-auto">
             <div className='row row-signup'>
               <div className="col-md-6 left-column">
                 <img src={image2} className="card-img" alt="" />

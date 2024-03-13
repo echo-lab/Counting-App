@@ -37,6 +37,7 @@ const gamePage = () => {
   const [modalShow, setModalShow] = useState(false);
   const [startAnimation, setstartAnimation] = useState(false);
   const [touchData, setTouchData] = useState([]);
+  const clickedCookies = new Set();
 
   const handleAnimationFinish = () => {
     
@@ -120,11 +121,16 @@ const gamePage = () => {
       setTimeout(() => {
         setIsWiggling(false);
       }, 2000);
+
+      
       const totalCount = Data.pages[currentPage].cookies.length - 1;
       const numericId = parseInt(id);
     
       if (cookieCount <= totalCount) {
         if (numericId === activeCookieId) {
+
+          const cookieElement = document.getElementById(id);
+          cookieElement.style.pointerEvents = 'none';
           
           if ("speechSynthesis" in window) {
             const audioElement = new Audio();
@@ -168,14 +174,18 @@ const gamePage = () => {
     
             if (cookieCount < totalCount) {
               audioElement.onend = setTimeout(function () {
-                setCookieCount((prevCount) => prevCount + 1);
-                setActiveCookieId(numericId + 1);
+                  setCookieCount((prevCount) => prevCount + 1);
+                  setActiveCookieId(numericId + 1);
               }, 2200);
             }
             if (cookieCount === totalCount) {
               audioElement.onend = setTimeout(function () {
-                setCookieCount((prevCount) => prevCount + 1);
+                  setCookieCount((prevCount) => prevCount + 1);
               }, 2200);
+              const allCookies = document.querySelectorAll('.cookieContainer img');
+              allCookies.forEach(cookie => {
+                cookie.style.pointerEvents = 'auto';
+              });
             }
           } else {
             console.error("SpeechSynthesis API is not supported in this browser.");

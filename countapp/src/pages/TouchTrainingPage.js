@@ -125,6 +125,9 @@ const TouchTrainingPage = () => {
     
       if (cookieCount <= totalCount) {
         if (numericId === activeCookieId) {
+
+          const cookieElement = document.getElementById(id);
+          cookieElement.style.pointerEvents = 'none';
           
           if ("speechSynthesis" in window) {
             const audioElement = new Audio();
@@ -176,6 +179,10 @@ const TouchTrainingPage = () => {
               audioElement.onend = setTimeout(function () {
                 setCookieCount((prevCount) => prevCount + 1);
               }, 2200);
+              const allCookies = document.querySelectorAll('.cookieContainer img');
+              allCookies.forEach(cookie => {
+                cookie.style.pointerEvents = 'auto';
+              });
             }
           } else {
             console.error("SpeechSynthesis API is not supported in this browser.");
