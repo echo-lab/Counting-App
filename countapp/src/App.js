@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SelectorPage from './pages/SelectorPage.js';
@@ -20,6 +20,16 @@ import './App.css';
 
 function App() {
   const isLoggedIn = window.localStorage.getItem("loggedIn");
+  useEffect(() => {
+    const handleContextMenu = (event) => {
+      event.preventDefault();
+    };
+    document.addEventListener("contextmenu", handleContextMenu);
+    return () => {
+      // Removes event listener when component unmounts to prevent memory leaks
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
+  }, []);
   return (
     <div className="App">
       <SoundProvider>
