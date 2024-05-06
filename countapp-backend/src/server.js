@@ -19,7 +19,7 @@ const keyPath = path.join(__dirname, '/Key/key.json');
 const dataPath = path.join(__dirname, '/data');
 
 const corsOptions = {
-  origin: 'https://talemate.cs.vt.edu:3100',
+  origin: 'https://talemate.cs.vt.edu:3200',
   methods: ['GET', 'POST'],
   credentials: true
 };
@@ -245,7 +245,7 @@ app.post("/register", async (req, res) => {
 
 
 
-const PORT = 8000;
+const PORT = 8001;
 
 connectToDb()
   .then(() => {

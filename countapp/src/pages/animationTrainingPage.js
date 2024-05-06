@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import AnimationNoCircle from "../components/animationNoCircleDraw.js";
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
@@ -92,12 +93,12 @@ const animationTrainingPage = () => {
   }
   };
 
-  useEffect(() => {
-    if (!spokenRef.current) {
-      speakUtterance();
-      spokenRef.current = true;
-    }
-  }, [currentPage]);
+  // useEffect(() => {
+  //   if (!spokenRef.current) {
+  //     speakUtterance();
+  //     spokenRef.current = true;
+  //   }
+  // }, [currentPage]);
 
   useEffect(() => {
     if(!once.current){
@@ -203,7 +204,8 @@ useEffect(() => {
           </div>
           <div className="card">
             <div className="card-body">
-             {message}
+              <button className="play-button" onClick={speakUtterance}><PlayCircleIcon /></button>
+               {message}
             </div>
           </div>
           <div className="cookieContainer position-absolute">
