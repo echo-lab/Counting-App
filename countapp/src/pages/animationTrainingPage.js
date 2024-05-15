@@ -12,6 +12,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AnimationNoCircle from "../components/animationNoCircleDraw.js";
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
 import { useSound } from '../helpers/SoundContext';
 import { textToSpeech } from '../helpers/textToSpeech';
 import DialogBox from "../components/dialogBox";
@@ -37,6 +38,7 @@ const animationTrainingPage = () => {
   const [startAnimation, setstartAnimation] = useState(false);
   const [touchData, setTouchData] = useState([]);
   const [firstAudioStarted, setFirstAudioStarted] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(true);
 
 
   const audioUrls = [audioData.trills[0], audioData.trills[1],audioData.trills[2],audioData.trills[3],audioData.trills[4],audioData.trills[5],audioData.trills[6],audioData.trills[7],audioData.trills[8],audioData.trills[9]];
@@ -92,12 +94,12 @@ const animationTrainingPage = () => {
   }
   };
 
-  useEffect(() => {
-    if (!spokenRef.current) {
-      speakUtterance();
-      spokenRef.current = true;
-    }
-  }, [currentPage]);
+  // useEffect(() => {
+  //   if (!spokenRef.current) {
+  //     speakUtterance();
+  //     spokenRef.current = true;
+  //   }
+  // }, [currentPage]);
 
   useEffect(() => {
     if(!once.current){
@@ -156,6 +158,7 @@ useEffect(() => {
       handleNextClickTraining(touchData, "animation", currentPage);
       setFirstAudioStarted(false);
       saveAnswers("animationTraining");
+      setShowPlayButton(true); 
     }
   };
 
@@ -170,6 +173,7 @@ useEffect(() => {
       spokenRef.current = false;
       spokenRef2.current = false;
       setFirstAudioStarted(false);
+      setShowPlayButton(true); 
     }
   };
 
@@ -192,10 +196,24 @@ useEffect(() => {
     storeAnswer(currentPage, trayType);
   };
 
+  const handlePlayButtonClick = () => {
+    setShowPlayButton(false); 
+    speakUtterance();
+  };
+
   return (
+    <div>
+      {showPlayButton && (
+        <div className="start-overlay">
+        <div className="start-overlay-content">
+      <button onClick={handlePlayButtonClick} className="show-overlay-button">
+      <PlayCircleIcon />
+      </button>
+       </div>
+      </div>
+        )}
     <div className="container">
-    <div className="row">
-      
+    <div className="row"> 
       <div className={showGrayArea? "col-4 cookiecol graybg" : "col-4 cookiecol"}>
           {showGrayArea  && <div className="overlay"></div>}
           <div className="background-container">
@@ -303,6 +321,7 @@ useEffect(() => {
           </div>
       </div>
       <div><button className="homeLogo"><Link to={`/game/home/${selectedOption}`}><HomeRoundedIcon /></Link></button></div>
+      </div>
       </div>
   );
 };
