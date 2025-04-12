@@ -53,6 +53,9 @@ const gamePage = () => {
   // state to store the id's of cookies clicked
   const clickedCookies = useRef(new Set());
 
+  // state to track mouse moevement
+  const [isDrawing, setIsDrawing] = useState(false);
+
   const handleAnimationFinish = () => {
     
     setTimeout(() => {
@@ -180,6 +183,10 @@ const gamePage = () => {
     }
   }, []);
 
+  useEffect(() => {
+    console.log("Start Animation:", startAnimation);
+    
+  }, [startAnimation]);
 
   const message = showMessage
   ? `Can Big Bird also have ${Data.pages[currentPage].cookies.length} cookies? Which tray has ${Data.pages[currentPage].cookies.length} cookies? Green or purple?`
@@ -236,8 +243,25 @@ const gamePage = () => {
     localStorage.setItem('touchTestAnswers', JSON.stringify(storedAnswersObject));
   };
 
+  // handle the click event on the tray
   const handleTrayClick = (trayType) => {
     setSelectedTray(trayType);
+    // if the correct tray has been clicked
+    if (trayType === "greenTray" && Data.pages[currentPage].greenTray[0].biscuits.length === Data.pages[currentPage].cookies.length) {
+      textToSpeech("Green is correct, Good job!");
+    }
+    else if (trayType === "purpleTray" && Data.pages[currentPage].purpleTray[0].biscuits.length === Data.pages[currentPage].cookies.length){
+      textToSpeech("Purple is correct, Well done!");
+    }
+    // if the wrong tray has been clicked
+    else if (trayType === "greenTray" && Data.pages[currentPage].greenTray[0].biscuits.length !== Data.pages[currentPage].cookies.length) {
+      const explanation = `No, ${trayType} has ${Data.pages[currentPage].greenTray[0].biscuits.length} cookies. Try again!`;
+      textToSpeech(explanation);
+    }
+    else{
+      const explanation = `Wrong answer, ${trayType} has ${Data.pages[currentPage].purpleTray[0].biscuits.length} cookies. Try again!`;
+      textToSpeech(explanation);
+    }
     storeAnswer(currentPage, trayType);
 
   };
@@ -248,19 +272,28 @@ const gamePage = () => {
     // if the cookie has not been clicked before, add it to the set and increment the count
     for (let i = 0; i <= totalCount; i++) {
       if (!clickedCookies.current.has(cookieId)) {
+        // track how many cookies have been clicked
         clickedCookies.current.add(cookieId);
         setCount(prevCount => {
             const newCount = prevCount + 1;
+            // real time update of the cookie count
             textToSpeech(`${newCount}`);
             setActiveCookieId(cookieId);
+            // if all the cookies have been clicked, show the animation
             if (newCount === totalCount) {
               setActiveCookieId(null);
               setstartAnimation(true);
+              const instruction = `Great job! Now draw a circle with your finger by following the yellow line.`;
+              setTimeout(() => {
+                textToSpeech(instruction, () => {
+                })
+              }, 1000);
             }
             return newCount;
         });
       }
     }
+    
   };
 
   return (
@@ -294,12 +327,15 @@ const gamePage = () => {
               />
             ))}
           </div>
-          {startAnimation && (<div className="anim"><Animation onAnimationFinish={handleAnimationFinish}/></div>)}
+          {startAnimation && (
+            <div className="anim">
+              <Animation onAnimationFinish={handleAnimationFinish}/>
+            </div>)}
         </div>
 
           <div className="col-8 position-absolute tray-container">
             {showTray2 && (
-              <div>
+            <div>
               <div
                 className={`tray-overlay1 ${selectedTray === "greenTray" ? "glow1" : ""}`}
                 onClick={() => handleTrayClick("greenTray")}
@@ -342,7 +378,7 @@ const gamePage = () => {
                   key="purpleTray"
                   alt="purpletray"
                 />
-              <div className="greenBiscuits position-absolute">
+              <div className="purpleBiscuits position-absolute">
               {Data.pages[currentPage].purpleTray[0].biscuits.map((biscuit) => (
                 <img
                   key={biscuit.id}

@@ -6,12 +6,18 @@
   background-image: url('../assests/site/menu-background.jpg');
   background-size: cover; 
   background-size: 100% 100%;
-  padding: 550px;
+  padding: 400px;
 }
 
 .button-list {
-  list-style-type: none;
-  margin-top: 5%;
+  display: grid; /* Use CSS Grid for layout */
+  grid-template-columns: repeat(3, 1)fr; /* Create responsive columns */
+  gap: 5px; /* Add spacing between buttons */
+  justify-content: center; /* Center the grid horizontally */
+  align-items: center; /* Align items vertically */
+  list-style-type: none; /* Remove bullet points */
+  padding: 0; /* Remove default padding */
+  margin: 200px auto; /* Center the list and add spacing */
 }
 
 .button-list li {
@@ -25,7 +31,7 @@
   background-color: #18b7db;
   border: none;
   padding: 12px;
-  width: 300px;
+  width: 200px;
 }
 
 .menu-button:hover {
@@ -100,4 +106,12 @@
 .clicked{
   background-color: #ccc;
 }
+
+.rows{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Ensures items within each row align */
+  gap: 10px;
+}
+
+
 
