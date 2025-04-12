@@ -74,6 +74,12 @@ function basePage() {
         }
       }, []);
 
+      useEffect(() => {
+        console.log("Current Page:", currentPage);
+        console.log("Green Tray Biscuits:", sectionTrainData.pages[currentPage].greenTray[0].biscuits);
+        console.log("Purple Tray Biscuits:", sectionTrainData.pages[currentPage].purpleTray[0].biscuits);
+      }, [currentPage, sectionTrainData]);
+
       const storeAnswer = (answerKey, answerValue) => {
         const storedAnswersJSON = localStorage.getItem('baselineTrainingAnswers');
         const storedAnswersObject = storedAnswersJSON ? JSON.parse(storedAnswersJSON) : {};
@@ -155,20 +161,20 @@ function basePage() {
         </div>
       </div>
       <div className="col-8 position-absolute tray-container">
-      {showTray2 && (
-      <div>
-              <div
-                className={`tray-overlay1 ${selectedTray === "greenTray" ? "glow1" : ""}`}
-                onClick={() => handleTrayClick("greenTray")}
-              />
-              <img
-                src={greenTray}
-                alt="greentray"
-                className="tray2"
-                id="greenTray"
-                key="greenTray"
-              />
-              <div className="greenBiscuits position-absolute">
+        {showTray2 && (
+          <div>
+            <div
+              className={`tray-overlay1 ${selectedTray === "greenTray" ? "glow1" : ""}`}
+              onClick={() => handleTrayClick("greenTray")}
+            />
+            <img
+              key="greenTray"
+              src={greenTray}
+              id="greenTray"
+              className="tray2"
+              alt="greentray"
+            />
+            <div className="greenBiscuits position-absolute">
               {sectionTrainData.pages[currentPage].greenTray[0].biscuits.map((biscuit) => (
                 <img
                   key={biscuit.id}
@@ -182,23 +188,23 @@ function basePage() {
                   }}
                 />
               ))}
-              </div>
             </div>
-            )}
-            {showTray2 && (
-            <div> 
-                <div
-                  className={`tray-overlay2 ${selectedTray === "purpleTray" ? "glow2" : ""}`}
-                  onClick={() => handleTrayClick("purpleTray")}
-                />      
-                <img
-                  src={purpleTray}
-                  className="tray3"
-                  id="purpleTray"
-                  key="purpleTray"
-                  alt="purpletray"
-                />
-              <div className="greenBiscuits position-absolute">
+          </div>
+        )}
+        {showTray2 && (
+          <div> 
+            <div
+              className={`tray-overlay2 ${selectedTray === "purpleTray" ? "glow2" : ""}`}
+              onClick={() => handleTrayClick("purpleTray")}
+            />      
+            <img
+              key="purpleTray"
+              src={purpleTray}
+              id="purpleTray"
+              className="tray3"
+              alt="purpletray"                 
+            />
+            <div className="purpleBiscuits position-absolute">
               {sectionTrainData.pages[currentPage].purpleTray[0].biscuits.map((biscuit) => (
                 <img
                   key={biscuit.id}
@@ -212,12 +218,12 @@ function basePage() {
                   }}
                 />
               ))}
-              </div>
             </div>
-            )}
-            {showBigBird && (
-              <img src={BigBird} className="bigBird" id="bigBird" key="bigBird" alt="bigbird"/>
-            )}
+          </div>
+        )}
+        {showBigBird && (
+          <img src={BigBird} className="bigBird" id="bigBird" key="bigBird" alt="bigbird"/>
+        )}
       </div>
 
       <div className="buttons">

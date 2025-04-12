@@ -176,6 +176,12 @@
 .greenBiscuits{
   height: 390px;
   width: 281.1px;
+  top: 0%;
+}
+
+.purpleBiscuits{
+  height: 390px;
+  width: 281.1px;
   top: 5%;
 }
 
@@ -215,7 +221,7 @@
   width:272px;
   height: 388px;
   cursor: pointer;
-  z-index: 5;
+  z-index: 8;
   margin-left: 13px;
   border-radius: 55px;
 }
