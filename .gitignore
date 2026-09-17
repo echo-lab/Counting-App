@@ -1,3 +1,7 @@
 countapp/node_modules
 countapp-backend/node_modules
 countapp-backend/src/key
+countapp/server/node_modules
+countapp/build
+node_modules
+.env.local
